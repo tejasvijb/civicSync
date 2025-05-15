@@ -107,12 +107,12 @@ export function CreateIssueForm({ issue }: { issue?: any }) {
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
-            <DialogTrigger asChild>
+            {issue?.status === "Pending" && <DialogTrigger asChild>
                 {issue ? <div className="flex cursor-pointer items-center gap-2">
                     <Pencil />
                     Edit
                 </div> : <Button>Create Issue</Button>}
-            </DialogTrigger>
+            </DialogTrigger>}
             <DialogContent className="max-sm:max-w-[425px] w-[700px]">
                 <DialogHeader>
                     <DialogTitle>{issue ? "Edit Issue" : "Create Issue"}</DialogTitle>

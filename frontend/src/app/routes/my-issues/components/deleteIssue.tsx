@@ -35,7 +35,12 @@ export default function DeleteIssue({ issue }: { issue: any }) {
         })
     }
 
+    if (issue?.status !== "Pending") {
+        return null
+    }
+
     return (
+
         <div onClick={() => onDelete()} className="flex cursor-pointer items-center gap-2">
             <Trash />
             Delete
