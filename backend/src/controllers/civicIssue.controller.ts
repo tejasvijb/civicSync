@@ -1,6 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import { CivicIssue } from "../models/CivicIssue";
 import validateAndParseData from "../utils/utils";
+import opencage from "opencage-api-client";
+
 import {
     createCivicIssueSchema,
     CreateCivicIssueType,
@@ -20,6 +22,12 @@ export const createCivicIssue = async (
         }
 
         // Extract the actual issue data from the nested body structure
+
+        const mockedLocation = await opencage.geocode({
+            q: issueData.location,
+        });
+
+        console.log("mockedLocation", mockedLocation);
 
         // Create new civic issue with the correct structure
         const newIssue = await CivicIssue.create({
@@ -165,4 +173,34 @@ export const getCivicIssueById = async (req: Request, res: Response) => {
                     : "Unknown error occurred",
         });
     }
+};
+
+export const voteIssue = async (req: Request, res: Response) => {
+    const issueId = req.params.id;
+    const userId = req.user?.id;
+
+    const issue = await CivicIssue.findById(issueId);
+
+    if (!issue) {
+        return res.status(404).json({
+            success: false,
+            message: "Issue not found",
+        });
+    }
+
+    if (issue.votedUsers.includes(userId)) {
+        return res.status(400).json({
+            success: false,
+            message: "You have already voted on this issue",
+        });
+    }
+
+    issue.votedUsers.push(userId);
+    issue.votes++;
+    await issue.save();
+
+    return res.status(200).json({
+        success: true,
+        message: "Issue voted successfully",
+    });
 };

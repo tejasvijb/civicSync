@@ -3,11 +3,12 @@ import { CreateCivicIssueTypeApi } from "../app/utils/validations";
 
 const URLS = {
     createIssue: "civic-issues/create",
-    getAllIssues: "civic-issues",
+    getAllIssues: "civic-issues/all",
     getIssuesByUserId: "civic-issues/user/issues",
     getIssueById: "civic-issues/:id",
     updateIssue: "civic-issues/:id",
     deleteIssue: "civic-issues/:id",
+    voteIssue: "civic-issues/:id/vote",
 };
 
 export const createCivicIssue = (body: CreateCivicIssueTypeApi) => {
@@ -32,4 +33,8 @@ export const updateCivicIssue = (id: string, data: CreateCivicIssueTypeApi) => {
 
 export const deleteCivicIssue = (id: string) => {
     return api.delete(URLS.deleteIssue.replace(":id", id));
+};
+
+export const voteCivicIssue = (id: string) => {
+    return api.post(URLS.voteIssue.replace(":id", id), {});
 };

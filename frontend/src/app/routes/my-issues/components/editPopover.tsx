@@ -6,9 +6,10 @@ import {
     PopoverTrigger,
 } from "@/components/ui/popover"
 import { EllipsisVertical } from "lucide-react"
-import { ViewIssueDialog } from "./viewIssueDialog"
+// import { ViewIssueDialog } from "../../../../components/common/viewIssueDialog"
 import { CreateIssueForm } from "./createIssueForm"
 import DeleteIssue from "./deleteIssue"
+import { ViewIssueDialog } from "@/components/common/viewIssueDialog"
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function EditPopover({ issue }: { issue: any }) {

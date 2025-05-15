@@ -9,6 +9,8 @@ export interface ICivicIssue extends Document {
     status: "Pending" | "In Progress" | "Resolved";
     createdAt: Date;
     user: Types.ObjectId;
+    votes: number;
+    votedUsers: Types.ObjectId[];
 }
 
 const civicIssueSchema = new Schema<ICivicIssue>({
@@ -48,6 +50,17 @@ const civicIssueSchema = new Schema<ICivicIssue>({
         type: Schema.Types.ObjectId,
         ref: "User",
         required: true,
+    },
+
+    votes: {
+        type: Number,
+        default: 0,
+    },
+    // votes is an array of user ids
+    votedUsers: {
+        type: [Schema.Types.ObjectId],
+        ref: "User",
+        required: false,
     },
 });
 

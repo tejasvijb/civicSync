@@ -1,6 +1,6 @@
 import { useAuth } from "@/store/useAuth";
 import { CreateIssueForm } from "./components/createIssueForm";
-import { IssuesTable } from "./components/issuesTable";
+import { IssuesTable } from "../../../components/common/issuesTable";
 import { useQuery } from "@tanstack/react-query";
 import { getCivicIssuesByUserId } from "@/api/civicIssuesApi";
 

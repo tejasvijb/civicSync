@@ -6,14 +6,16 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
-import EditPopover from "./editPopover"
+import EditPopover from "../../app/routes/my-issues/components/editPopover"
+
+import { ViewIssueDialog } from "./viewIssueDialog"
 
 
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function IssuesTable({ issues }: { issues: any }) {
+export function IssuesTable({ issues, isPublic }: { issues: any, isPublic?: boolean }) {
 
-    console.log(issues)
+
 
     return (
         <Table>
@@ -34,9 +36,9 @@ export function IssuesTable({ issues }: { issues: any }) {
                             <TableCell className="font-medium">{issue.title.slice(0, 20)}...</TableCell>
                             <TableCell>{issue.category}</TableCell>
                             <TableCell>{issue.status}</TableCell>
-                            <TableCell className="text-right">{issue.votes || ''}</TableCell>
+                            <TableCell>{issue.votes}</TableCell>
                             <TableCell className="text-right">
-                                <EditPopover issue={issue} />
+                                {isPublic ? <ViewIssueDialog issue={issue} isPublic={isPublic} /> : <EditPopover issue={issue} />}
                             </TableCell>
                         </TableRow>
                     ))

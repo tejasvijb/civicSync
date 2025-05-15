@@ -6,6 +6,7 @@ import {
     getCivicIssueById,
     getUserCivicIssues,
     updateCivicIssue,
+    voteIssue,
 } from "../controllers/civicIssue.controller";
 import validateToken from "../middleware/validateTokenHandler";
 
@@ -14,10 +15,11 @@ const router = Router();
 // Public routes
 
 router.use(validateToken);
-router.get("/", getAllCivicIssues);
+router.get("/all", getAllCivicIssues);
 router.get("/:id", getCivicIssueById);
 router.put("/:id", updateCivicIssue);
 router.delete("/:id", deleteCivicIssue);
+router.post("/:id/vote", voteIssue);
 
 router.post("/create", createCivicIssue);
 router.get("/user/issues", getUserCivicIssues);
