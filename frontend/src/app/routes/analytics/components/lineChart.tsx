@@ -1,5 +1,4 @@
-import { TrendingUp } from "lucide-react"
-import { CartesianGrid, Line, LineChart, XAxis } from "recharts"
+import { CartesianGrid, Line, LineChart as RechartsLineChart, XAxis, YAxis, ResponsiveContainer } from "recharts"
 
 import {
     Card,
@@ -10,72 +9,101 @@ import {
     CardTitle,
 } from "@/components/ui/card"
 import {
-    ChartConfig,
-    ChartContainer,
     ChartTooltip,
-    ChartTooltipContent,
 } from "@/components/ui/chart"
-const chartData = [
-    { month: "January", desktop: 186 },
-    { month: "February", desktop: 305 },
-    { month: "March", desktop: 237 },
-    { month: "April", desktop: 73 },
-    { month: "May", desktop: 209 },
-    { month: "June", desktop: 214 },
-]
 
-const chartConfig = {
-    desktop: {
-        label: "Desktop",
-        color: "hsl(var(--chart-1))",
-    },
-} satisfies ChartConfig
+interface ChartDataPoint {
+    day: string;
+    issueCount: number;
+}
 
-export function Component() {
+interface LinearChartProps {
+    chartData: ChartDataPoint[];
+}
+
+
+
+export function LinearChart({ chartData }: LinearChartProps) {
     return (
         <Card>
             <CardHeader>
-                <CardTitle>Line Chart</CardTitle>
-                <CardDescription>January - June 2024</CardDescription>
+                <CardTitle>Daily Issues</CardTitle>
+                <CardDescription>Last 7 Days</CardDescription>
             </CardHeader>
-            <CardContent>
-                <ChartContainer config={chartConfig}>
-                    <LineChart
-                        accessibilityLayer
+            <CardContent className="h-[300px]">
+                <ResponsiveContainer width="100%" height="100%">
+                    <RechartsLineChart
                         data={chartData}
                         margin={{
-                            left: 12,
-                            right: 12,
+                            top: 5,
+                            right: 10,
+                            left: 10,
+                            bottom: 5,
                         }}
                     >
-                        <CartesianGrid vertical={false} />
+                        <CartesianGrid strokeDasharray="3 3" />
                         <XAxis
-                            dataKey="month"
+                            dataKey="day"
                             tickLine={false}
                             axisLine={false}
                             tickMargin={8}
-                            tickFormatter={(value) => value.slice(0, 3)}
+                        />
+                        <YAxis
+                            tickLine={false}
+                            axisLine={false}
+                            tickMargin={8}
                         />
                         <ChartTooltip
-                            cursor={false}
-                            content={<ChartTooltipContent hideLabel />}
+                            content={({ active, payload }) => {
+                                if (active && payload && payload.length) {
+                                    return (
+                                        <div className="rounded-lg border bg-background p-2 shadow-sm">
+                                            <div className="grid grid-cols-2 gap-2">
+                                                <div className="flex flex-col">
+                                                    <span className="text-[0.70rem] uppercase text-muted-foreground">
+                                                        Day
+                                                    </span>
+                                                    <span className="font-bold text-muted-foreground">
+                                                        {payload[0].payload.day}
+                                                    </span>
+                                                </div>
+                                                <div className="flex flex-col">
+                                                    <span className="text-[0.70rem] uppercase text-muted-foreground">
+                                                        Issues
+                                                    </span>
+                                                    <span className="font-bold">
+                                                        {payload[0].value}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )
+                                }
+                                return null
+                            }}
                         />
                         <Line
-                            dataKey="desktop"
-                            type="natural"
-                            stroke="var(--color-desktop)"
+                            type="monotone"
+                            dataKey="issueCount"
+                            stroke="hsl(var(--chart-1))"
                             strokeWidth={2}
-                            dot={false}
+                            dot={{
+                                r: 4,
+                                fill: "hsl(var(--chart-1))",
+                                strokeWidth: 2,
+                            }}
+                            activeDot={{
+                                r: 6,
+                                fill: "hsl(var(--chart-1))",
+                                strokeWidth: 2,
+                            }}
                         />
-                    </LineChart>
-                </ChartContainer>
+                    </RechartsLineChart>
+                </ResponsiveContainer>
             </CardContent>
             <CardFooter className="flex-col items-start gap-2 text-sm">
-                <div className="flex gap-2 font-medium leading-none">
-                    Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
-                </div>
                 <div className="leading-none text-muted-foreground">
-                    Showing total visitors for the last 6 months
+                    Showing daily issue creation trends for the last 7 days
                 </div>
             </CardFooter>
         </Card>
