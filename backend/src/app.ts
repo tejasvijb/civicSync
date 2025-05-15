@@ -13,7 +13,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 const corsOptions = {
-    origin: process.env.FRONTEND_URL || "https://quiz-app-flame-mu.vercel.app", // Replace with your frontend's domain
+    origin: process.env.FRONTEND_URL || "https://civic-sync-lilac.vercel.app", // Replace with your frontend's domain
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true, // Allow cookies to be sent
     allowedHeaders: "Content-Type, Authorization",
