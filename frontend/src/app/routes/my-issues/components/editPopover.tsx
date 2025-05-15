@@ -5,7 +5,7 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover"
-import { EllipsisVertical, Eye, Pencil, Trash } from "lucide-react"
+import { EllipsisVertical } from "lucide-react"
 import { ViewIssueDialog } from "./viewIssueDialog"
 import { CreateIssueForm } from "./createIssueForm"
 import DeleteIssue from "./deleteIssue"

@@ -8,7 +8,7 @@ export default function Issues() {
 
     const { user } = useAuth()
 
-    const { data: issues, isLoading, error } = useQuery({
+    const { data: issues } = useQuery({
         queryKey: ["issuesByUserId", user?.id],
         queryFn: () => getCivicIssuesByUserId(),
     })
