@@ -1,5 +1,7 @@
+import { useAuth } from "../../store/useAuth";
+
 // Mock authentication function
 export const isAuthenticated = () => {
-    // Replace with your actual authentication logic
-    return !!sessionStorage.getItem("authToken");
+    const user = useAuth.getState().user;
+    return !!user;
 };

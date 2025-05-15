@@ -54,7 +54,6 @@ export const loginUser = asyncHandler(
 
         // compare password with hashed password
         if (user && (await bcrypt.compare(body.password, user.password))) {
-      
             const accessToken = jwt.sign(
                 {
                     user: {
@@ -68,14 +67,17 @@ export const loginUser = asyncHandler(
                     expiresIn: "15m",
                 }
             );
+            // add username, email, id to the response
             res.status(200).json({
                 accessToken,
+                username: user.username,
+                email: user.email,
+                id: user.id,
             });
         } else {
             res.status(401);
             throw new Error("Invalid email or password");
         }
-
     }
 );
 

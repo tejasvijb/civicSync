@@ -6,12 +6,17 @@ import {
     createBrowserRouter,
     RouterProvider,
 } from "react-router-dom";
-import Home from './app/routes/home'
 
 import AuthLayout from './app/routes/auth/index.tsx';
 import Login from './app/routes/auth/login/index.tsx';
 import Register from './app/routes/auth/register/index.tsx';
 import ProtectedRoute from './components/common/ProtectedRoute.tsx';
+import HomeLayout from './app/routes/home';
+import Issues from './app/routes/my-issues/index.tsx';
+import PublicIssues from './app/routes/public-issues/index.tsx';
+import Analytics from './app/routes/analytics';
+import MapView from './app/routes/map-view';
+import Dashboard from './app/routes/dashboard';
 
 const router = createBrowserRouter([
     {
@@ -30,17 +35,46 @@ const router = createBrowserRouter([
                         path: "/auth/register",
                         element: <Register />
                     },
-
                 ]
             },
-
             {
                 path: "/",
                 element: <ProtectedRoute>
-                    <Home />
+                    <HomeLayout />
                 </ProtectedRoute>,
-            },
-
+                children: [
+                    {
+                        index: true,
+                        element: <ProtectedRoute>
+                            <Dashboard />
+                        </ProtectedRoute>
+                    },
+                    {
+                        path: "/my-issues",
+                        element: <ProtectedRoute>
+                            <Issues />
+                        </ProtectedRoute>
+                    },
+                    {
+                        path: "/public-issues",
+                        element: <ProtectedRoute>
+                            <PublicIssues />
+                        </ProtectedRoute>
+                    },
+                    {
+                        path: "/analytics",
+                        element: <ProtectedRoute>
+                            <Analytics />
+                        </ProtectedRoute>
+                    },
+                    {
+                        path: "/map-view",
+                        element: <ProtectedRoute>
+                            <MapView />
+                        </ProtectedRoute>
+                    }
+                ]
+            }
         ]
     },
     {
@@ -48,8 +82,6 @@ const router = createBrowserRouter([
         element: <div>Not found</div>
     }
 ]);
-
-
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>

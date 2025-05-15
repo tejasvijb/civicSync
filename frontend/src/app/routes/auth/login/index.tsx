@@ -12,17 +12,23 @@ import { AxiosError } from "axios"
 import { ErrorResponse } from "../../../../api/api.types"
 import Swal from 'sweetalert2'
 import { Shell } from "lucide-react"
-
-
+import { useAuth } from "../../../../store/useAuth"
 
 export default function Login() {
-
     const navigate = useNavigate();
+    const setUser = useAuth((state) => state.setUser);
 
     const { mutate, isPending } = useMutation({
         mutationFn: userLogin,
         onSuccess: (data) => {
-            sessionStorage.setItem("authToken", data.data.accessToken)
+            const userData = {
+                username: data.data.username,
+                email: data.data.email,
+                id: data.data.id,
+                authToken: data.data.accessToken
+            };
+            setUser(userData);
+
             Swal.fire({
                 position: "top-end",
                 icon: "success",
@@ -41,9 +47,7 @@ export default function Login() {
                 icon: 'error',
                 confirmButtonText: 'Ok'
             })
-
         }
-
     })
 
     const form = useForm({
