@@ -23,11 +23,11 @@ export const createCivicIssue = async (
 
         // Extract the actual issue data from the nested body structure
 
-        const mockedLocation = await opencage.geocode({
-            q: issueData.location,
-        });
+        // const mockedLocation = await opencage.geocode({
+        //     q: issueData.location,
+        // });
 
-        console.log("mockedLocation", mockedLocation);
+        // console.log("mockedLocation", mockedLocation);
 
         // Create new civic issue with the correct structure
         const newIssue = await CivicIssue.create({

@@ -36,6 +36,18 @@ body::-webkit-scrollbar-track {
         --sidebar-accent-foreground: 240 5.9% 10%;
         --sidebar-border: 220 13% 91%;
         --sidebar-ring: 217.2 91.2% 59.8%;
+
+        /* Chart Colors */
+        --chart-1: 258 90% 66%;
+        /* Vibrant Purple */
+        --chart-2: 199 89% 48%;
+        /* Bright Blue */
+        --chart-3: 130 94% 39%;
+        /* Fresh Green */
+        --chart-4: 326 100% 74%;
+        /* Soft Pink */
+        --chart-5: 32 95% 44%;
+        /* Warm Orange */
     }
 
     .dark {
@@ -47,5 +59,17 @@ body::-webkit-scrollbar-track {
         --sidebar-accent-foreground: 240 4.8% 95.9%;
         --sidebar-border: 240 3.7% 15.9%;
         --sidebar-ring: 217.2 91.2% 59.8%;
+
+        /* Chart Colors - Dark Mode */
+        --chart-1: 258 90% 76%;
+        /* Lighter Purple */
+        --chart-2: 199 89% 58%;
+        /* Lighter Blue */
+        --chart-3: 130 94% 49%;
+        /* Lighter Green */
+        --chart-4: 326 100% 84%;
+        /* Lighter Pink */
+        --chart-5: 32 95% 54%;
+        /* Lighter Orange */
     }
 }

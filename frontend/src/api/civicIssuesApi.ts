@@ -1,5 +1,11 @@
 import api from "./api";
 import { CreateCivicIssueTypeApi } from "../app/utils/validations";
+import { AxiosResponse } from "axios";
+
+interface ApiResponse {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    data: any;
+}
 
 const URLS = {
     createIssue: "civic-issues/create",
@@ -15,7 +21,7 @@ export const createCivicIssue = (body: CreateCivicIssueTypeApi) => {
     return api.post(URLS.createIssue, body);
 };
 
-export const getAllCivicIssues = () => {
+export const getAllCivicIssues = (): Promise<AxiosResponse<ApiResponse>> => {
     return api.get(URLS.getAllIssues);
 };
 
