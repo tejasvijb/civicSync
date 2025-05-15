@@ -6,6 +6,7 @@ import cors from "cors";
 import { errorHandler } from "./middleware/errorHandler";
 import connectDb from "./config/dbConnection";
 import userRoutes from "./routes/userRoutes";
+import civicIssueRoutes from "./routes/civicIssue.routes";
 
 dotenv.config();
 
@@ -34,6 +35,7 @@ app.use(bodyParser.json());
 app.use(morgan("dev"));
 
 app.use("/api/users", userRoutes);
+app.use("/api/civic-issues", civicIssueRoutes);
 app.use(errorHandler);
 
 connectDb();

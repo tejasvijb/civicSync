@@ -42,6 +42,7 @@ export default function Login() {
         onError: (err: AxiosError<ErrorResponse>) => {
             console.log("err")
             Swal.fire({
+                position: "top-end",
                 title: 'Error!',
                 text: err.response?.data?.message || err.message || "Something Went wrong!",
                 icon: 'error',

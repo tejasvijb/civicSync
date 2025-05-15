@@ -1,8 +1,6 @@
 import { ZodSchema } from "zod";
 import { NextFunction } from "express";
 
-// import { Request } from "express"
-
 type Body = Record<string, any>;
 
 export default function validateAndParseData(
@@ -18,22 +16,8 @@ export default function validateAndParseData(
             return `${path}: ${err.message}`;
         });
         next(new Error(errorMessages.join(", ")));
-        throw new Error("Invalid Data");
+        return false;
     }
 
-    return;
+    return true;
 }
-
-// export function generateSecureKey(): Buffer {
-//     return crypto.randomBytes(64);
-//   }
-
-// export function getSecretObject() {
-
-//     const secretObject: Secret = {
-//       key: "secretkey",
-//       passphrase: process.env.ACCESS_TOKEN_SECRET as string
-//     };
-
-//     return secretObject
-// }

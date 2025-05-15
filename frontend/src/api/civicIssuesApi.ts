@@ -1,0 +1,35 @@
+import api from "./api";
+import { CreateCivicIssueTypeApi } from "../app/utils/validations";
+
+const URLS = {
+    createIssue: "civic-issues/create",
+    getAllIssues: "civic-issues",
+    getIssuesByUserId: "civic-issues/user/issues",
+    getIssueById: "civic-issues/:id",
+    updateIssue: "civic-issues/:id",
+    deleteIssue: "civic-issues/:id",
+};
+
+export const createCivicIssue = (body: CreateCivicIssueTypeApi) => {
+    return api.post(URLS.createIssue, body);
+};
+
+export const getAllCivicIssues = () => {
+    return api.get(URLS.getAllIssues);
+};
+
+export const getCivicIssueById = (id: string) => {
+    return api.get(URLS.getIssueById.replace(":id", id));
+};
+
+export const getCivicIssuesByUserId = () => {
+    return api.get(URLS.getIssuesByUserId);
+};
+
+export const updateCivicIssue = (id: string, data: CreateCivicIssueTypeApi) => {
+    return api.put(URLS.updateIssue.replace(":id", id), data);
+};
+
+export const deleteCivicIssue = (id: string) => {
+    return api.delete(URLS.deleteIssue.replace(":id", id));
+};
