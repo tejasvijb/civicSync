@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/popover"
 import { EllipsisVertical } from "lucide-react"
 // import { ViewIssueDialog } from "../../../../components/common/viewIssueDialog"
-import { CreateIssueForm } from "./createIssueForm"
+// import { CreateIssueForm } from "./createIssueForm"
 import DeleteIssue from "./deleteIssue"
 import { ViewIssueDialog } from "@/components/common/viewIssueDialog"
 
@@ -29,7 +29,7 @@ export default function EditPopover({ issue }: { issue: any }) {
                 <div className="grid gap-4">
                     {/* add lucide icons without buttons for View, edit , delete */}
                     <ViewIssueDialog issue={issue} />
-                    <CreateIssueForm issue={issue} />
+                    {/* <CreateIssueForm issue={issue} /> */}
                     <DeleteIssue issue={issue} />
                 </div>
             </PopoverContent>

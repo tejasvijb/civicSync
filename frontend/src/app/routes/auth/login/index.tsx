@@ -13,6 +13,7 @@ import { ErrorResponse } from "../../../../api/api.types"
 import Swal from 'sweetalert2'
 import { Shell } from "lucide-react"
 import { useAuth } from "../../../../store/useAuth"
+import { toast } from "sonner"
 
 export default function Login() {
     const navigate = useNavigate();
@@ -29,13 +30,7 @@ export default function Login() {
             };
             setUser(userData);
 
-            Swal.fire({
-                position: "top-end",
-                icon: "success",
-                title: "Logged In",
-                showConfirmButton: false,
-                timer: 1500
-            });
+            toast.success("Logged In")
 
             navigate("/")
         },

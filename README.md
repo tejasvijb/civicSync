@@ -39,14 +39,18 @@ Category (dropdown: Road, Water, Sanitation, Electricity, Other)
 Location (can be text-based, e.g., “Sector 15, Chandigarh”)
 Image Upload (optional but functional)
 Status is auto-set to Pending on creation
-Created At timestamp auto-generated 2. My Issues
-Each user has access to a "My Issues" dashboard:
+Created At timestamp auto-generated
+
+2. My Issues
+   Each user has access to a "My Issues" dashboard:
 
 Shows list of their submitted issues
 Allows editing or deleting if issue status is still Pending
 Displays current vote count and status
-Clickable to open issue details 3. Public Issue Feed
-A globally visible, paginated list showing all reported issues:
+Clickable to open issue details
+
+3. Public Issue Feed
+   A globally visible, paginated list showing all reported issues:
 
 Each card shows:
 Title
@@ -64,23 +68,30 @@ Full description
 Uploaded image
 Location text
 Total votes
-Option to cast a vote (disabled if already voted) 4. Voting System
-Each user can vote once on any issue (stored with userID + issueID)
-Vote count updates in real time or on reload
-Vote button changes state post-vote (Voted ✔) 5. Dashboard & Analytics View
-A separate view accessible post-login, showing:
+Option to cast a vote (disabled if already voted)
+
+4. Voting System
+   Each user can vote once on any issue (stored with userID + issueID)
+   Vote count updates in real time or on reload
+   Vote button changes state post-vote (Voted ✔)
+
+5. Dashboard & Analytics View
+   A separate view accessible post-login, showing:
 
 Donut/Bar chart of issue count per category
 Line chart showing daily issue submissions in past 7 days
 Bar graph or table showing most-voted issues by category
-All visualizations should update dynamically with data 6. Map View (Mandatory Feature)
-Visualize reported issues on a map view
-Each issue is represented as a marker
-Clicking a marker shows:
-Title
-Status
-Number of votes
-Locations can be static coordinates or mocked geolocation derived from text input
+All visualizations should update dynamically with data
+
+6. Map View (Mandatory Feature)
+   Visualize reported issues on a map view
+   Each issue is represented as a marker
+   Clicking a marker shows:
+   Title
+   Status
+   Number of votes
+   Locations can be static coordinates or mocked geolocation derived from text input
+
 🧪 Additional Notes
 Status of issue (Pending, In Progress, Resolved) can be manually updated in the database or through a button (optional for candidate to simulate resolution flow)
 All images should be stored and retrievable — don't mock the upload flow

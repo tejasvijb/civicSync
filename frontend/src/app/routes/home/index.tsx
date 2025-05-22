@@ -2,7 +2,7 @@ import { AppSidebar } from "@/components/common/app-sidebar"
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb"
 import { Separator } from "@/components/ui/separator"
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
-import { Outlet, useLocation } from "react-router-dom"
+import { Link, Outlet, useLocation } from "react-router-dom"
 import { getBreadcrumbs } from "@/app/utils/breadcrumbs"
 import React from "react"
 
@@ -26,9 +26,11 @@ export default function HomeLayout() {
                                             {index === breadcrumbs.length - 1 ? (
                                                 <BreadcrumbPage>{crumb.label}</BreadcrumbPage>
                                             ) : (
-                                                <BreadcrumbLink href={crumb.path}>
-                                                    {crumb.label}
-                                                </BreadcrumbLink>
+                                                <Link to={crumb.path}>
+                                                    <BreadcrumbLink >
+                                                        {crumb.label}
+                                                    </BreadcrumbLink>
+                                                </Link>
                                             )}
                                         </BreadcrumbItem>
                                         {index < breadcrumbs.length - 1 && (

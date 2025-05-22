@@ -9,6 +9,7 @@ interface BreadcrumbConfig {
 export const breadcrumbConfig: BreadcrumbConfig[] = [
     { path: "/", label: "Home" },
     { path: "/my-issues", label: "My Issues", parent: "/" },
+    { path: "/my-issues/:id", label: "Issue Details", parent: "/my-issues" },
     { path: "/public-issues", label: "Public Issues", parent: "/" },
     { path: "/analytics", label: "Analytics", parent: "/" },
     { path: "/map-view", label: "Map View", parent: "/" },

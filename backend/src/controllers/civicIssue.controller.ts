@@ -3,6 +3,8 @@ import { CivicIssue } from "../models/CivicIssue";
 import validateAndParseData from "../utils/utils";
 import opencage from "opencage-api-client";
 
+//import npm package types for opencage
+
 import {
     createCivicIssueSchema,
     CreateCivicIssueType,
@@ -23,11 +25,12 @@ export const createCivicIssue = async (
 
         // Extract the actual issue data from the nested body structure
 
-        // const mockedLocation = await opencage.geocode({
-        //     q: issueData.location,
-        // });
+        const mockedLocation = await opencage.geocode({
+            q: issueData.location,
+        });
 
-        // console.log("mockedLocation", mockedLocation);
+        const latitude = mockedLocation?.results[0]?.geometry?.lat as number;
+        const longitude = mockedLocation?.results[0]?.geometry?.lng as number;
 
         // Create new civic issue with the correct structure
         const newIssue = await CivicIssue.create({
@@ -35,6 +38,8 @@ export const createCivicIssue = async (
             status: "Pending", // Auto-set status to Pending
             createdAt: new Date(),
             user: issueData.user,
+            latitude: latitude || 0,
+            longitude: longitude || 0,
         });
 
         return res.status(201).json({
@@ -100,13 +105,54 @@ export const updateCivicIssue = async (
 
 export const getAllCivicIssues = async (req: Request, res: Response) => {
     try {
-        const issues = await CivicIssue.find()
-            .sort({ createdAt: -1 })
-            .populate("user", "name email"); // Populate user details
+        const {
+            page = 1,
+            limit = 10,
+            search = "",
+            category,
+            status,
+            sortBy = "createdAt", // or "votes"
+            sortOrder = "desc", // or "asc"
+        } = req.query;
+
+        const query: any = {};
+
+        // Search by title (case-insensitive)
+        if (search) {
+            query.title = { $regex: search, $options: "i" };
+        }
+
+        // Filter by category
+        if (category) {
+            query.category = category;
+        }
+
+        // Filter by status
+        if (status) {
+            query.status = status;
+        }
+
+        // Sorting
+        const sortOptions: any = {};
+        sortOptions[sortBy as string] = sortOrder === "asc" ? 1 : -1;
+
+        const issues = await CivicIssue.find(query)
+            .populate("user", "name email")
+            .sort(sortOptions)
+            .skip((+page - 1) * +limit)
+            .limit(+limit);
+
+        const totalCount = await CivicIssue.countDocuments(query);
 
         return res.status(200).json({
             success: true,
             data: issues,
+            pagination: {
+                total: totalCount,
+                page: +page,
+                limit: +limit,
+                totalPages: Math.ceil(totalCount / +limit),
+            },
         });
     } catch (error) {
         return res.status(500).json({

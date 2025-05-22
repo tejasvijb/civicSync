@@ -11,6 +11,8 @@ export interface ICivicIssue extends Document {
     user: Types.ObjectId;
     votes: number;
     votedUsers: Types.ObjectId[];
+    latitude: number;
+    longitude: number;
 }
 
 const civicIssueSchema = new Schema<ICivicIssue>({
@@ -60,6 +62,14 @@ const civicIssueSchema = new Schema<ICivicIssue>({
     votedUsers: {
         type: [Schema.Types.ObjectId],
         ref: "User",
+        required: false,
+    },
+    latitude: {
+        type: Number,
+        required: false,
+    },
+    longitude: {
+        type: Number,
         required: false,
     },
 });

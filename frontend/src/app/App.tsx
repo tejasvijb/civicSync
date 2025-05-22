@@ -8,6 +8,7 @@ import {
 } from '@tanstack/react-query'
 
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { Toaster } from '@/components/ui/sonner';
 
 
 // Create a client
@@ -22,6 +23,7 @@ function App() {
             <main >
                 <section className='relative rounded-md h-screen'>
                     <Outlet />
+                    <Toaster />
                 </section>
             </main >
             <ReactQueryDevtools initialIsOpen={false} />

@@ -12,21 +12,8 @@ import { useAuth } from "@/store/useAuth";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Check, Eye } from "lucide-react";
 import { Button } from "../ui/button";
+import { Issue } from "@/app/types/issues";
 
-interface Issue {
-    _id: string;
-    title: string;
-    description: string;
-    category: string;
-    location: string;
-    imageUrl: string;
-    status: string;
-    createdAt: string;
-    user: string;
-    __v: number;
-    votedUsers: string[];
-    votes: number;
-}
 
 export function ViewIssueDialog({ issue, isPublic }: { issue: Issue, isPublic?: boolean }) {
 

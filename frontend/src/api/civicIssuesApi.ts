@@ -7,6 +7,13 @@ interface ApiResponse {
     data: any;
 }
 
+interface Pagination {
+    total: number;
+    page: number;
+    limit: number;
+    totalPages: number;
+}
+
 const URLS = {
     createIssue: "civic-issues/create",
     getAllIssues: "civic-issues/all",
@@ -21,12 +28,21 @@ export const createCivicIssue = (body: CreateCivicIssueTypeApi) => {
     return api.post(URLS.createIssue, body);
 };
 
-export const getAllCivicIssues = (): Promise<AxiosResponse<ApiResponse>> => {
-    return api.get(URLS.getAllIssues);
+export const getAllCivicIssues = (params: {
+    page?: number;
+    limit?: number;
+    search?: string;
+    category?: string;
+    status?: string;
+}) => {
+    return api.get<ApiResponse & { pagination: Pagination }>(
+        URLS.getAllIssues,
+        { params }
+    );
 };
 
 export const getCivicIssueById = (id: string) => {
-    return api.get(URLS.getIssueById.replace(":id", id));
+    return api.get<ApiResponse>(URLS.getIssueById.replace(":id", id));
 };
 
 export const getCivicIssuesByUserId = () => {

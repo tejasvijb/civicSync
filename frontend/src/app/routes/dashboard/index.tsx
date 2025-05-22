@@ -13,7 +13,7 @@ export default function Dashboard() {
             title: "Public Issues",
             description: "Browse and discover community reported issues",
             icon: FolderKanban,
-            link: "/public-issues"
+            link: "/public-issues?page=1"
         },
         {
             title: "Analytics",

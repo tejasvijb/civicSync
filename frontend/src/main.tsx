@@ -17,6 +17,8 @@ import PublicIssues from './app/routes/public-issues/index.tsx';
 import Analytics from './app/routes/analytics';
 import MapView from './app/routes/map-view';
 import Dashboard from './app/routes/dashboard';
+import IssueDetails from './app/routes/my-issues/id/index.tsx';
+import PublicIssueDetailsPage from './app/routes/public-issues/id/index.tsx';
 
 const router = createBrowserRouter([
     {
@@ -56,9 +58,21 @@ const router = createBrowserRouter([
                         </ProtectedRoute>
                     },
                     {
+                        path: "/my-issues/:id",
+                        element: <ProtectedRoute>
+                            <IssueDetails />
+                        </ProtectedRoute>
+                    },
+                    {
                         path: "/public-issues",
                         element: <ProtectedRoute>
                             <PublicIssues />
+                        </ProtectedRoute>
+                    },
+                    {
+                        path: "/public-issues/:id",
+                        element: <ProtectedRoute>
+                            <PublicIssueDetailsPage />
                         </ProtectedRoute>
                     },
                     {
