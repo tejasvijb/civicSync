@@ -66,11 +66,16 @@ export default function Analytics() {
 
     const barResult = categories.map(category => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const maxVotes = issues?.data?.data?.filter((issue: any) => issue.category === category).length ?? 0;
+        const totalVotes = issues?.data?.data?.reduce((acc: number, issue: any) => {
+            if (issue.category === category) {
+                return acc + issue.votes;
+            }
+            return acc;
+        }, 0);
 
         return {
             category,
-            votes: maxVotes,
+            votes: totalVotes,
             fill: chartColors[category]
         };
     });

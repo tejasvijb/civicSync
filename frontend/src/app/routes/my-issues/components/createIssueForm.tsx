@@ -11,6 +11,8 @@ import CustomSelect from "@/components/ui/CustomSelect"
 import { useAuth } from "@/store/useAuth"
 import { useParams } from "react-router-dom"
 import { toast } from "sonner"
+import { UploadButton } from "@/app/utils/uploadthing"
+import { ClientUploadedFileData } from "uploadthing/types"
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function CreateIssueForm({ issue, setOpen }: { issue?: any, setOpen: (open: boolean) => void }) {
@@ -96,6 +98,12 @@ export function CreateIssueForm({ issue, setOpen }: { issue?: any, setOpen: (ope
         { label: "Resolved", value: "Resolved" },
     ]
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const onUploadComplete = (res: ClientUploadedFileData<any>[]) => {
+        form.setValue("imageUrl", res[0].ufsUrl)
+    }
+
+
 
 
     return (
@@ -116,7 +124,7 @@ export function CreateIssueForm({ issue, setOpen }: { issue?: any, setOpen: (ope
                         options={civicIssueCategories}
                         placeholder="Select a category"
                     />
-                    <CustomInput form={form} isSubmitting={isPending} label='Image' name='imageUrl' placeholder="eg. 'Pothole on the road' " />
+                    {/* <CustomInput form={form} isSubmitting={isPending} label='Image' name='imageUrl' placeholder="eg. 'Pothole on the road' " /> */}
                     {issue && <CustomSelect
                         form={form}
                         name="status"
@@ -124,6 +132,21 @@ export function CreateIssueForm({ issue, setOpen }: { issue?: any, setOpen: (ope
                         required
                         options={civicIssueStatus}
                     />}
+                </div>
+                <div className="flex gap-8">
+                    <UploadButton endpoint="imageUploader" onClientUploadComplete={(res) => {
+                        onUploadComplete(res)
+                    }} />
+                    {form.watch("imageUrl") && (
+                        <div className="mt-2">
+                            <p className="text-sm mb-1">Image Preview:</p>
+                            <img
+                                src={form.watch("imageUrl")}
+                                alt="Issue preview"
+                                className="w-40 h-40 object-cover rounded-md border"
+                            />
+                        </div>
+                    )}
                 </div>
                 <div className="flex justify-end">
                     <Button type="submit" disabled={isPending || isEditPending}>

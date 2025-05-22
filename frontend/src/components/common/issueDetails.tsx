@@ -124,7 +124,7 @@ export default function IssueDetails({ isPublic }: { isPublic?: boolean }) {
                     {/* show image, category createdAt status, location,votes in a structured and responsive way */}
                     <div className="flex justify-center gap-2">
                         <div className="flex flex-col gap-2">
-                            <div className="h-[200px] w-[200px]"><img className="w-full h-full object-cover" src={issue?.data?.data.image} alt="issue" /></div>
+                            <div className="h-[200px] w-[200px]"><img className="w-full h-full object-cover" src={issue?.data?.data.imageUrl} alt="issue" /></div>
                         </div>
                     </div>
 

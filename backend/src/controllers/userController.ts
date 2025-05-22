@@ -64,7 +64,7 @@ export const loginUser = asyncHandler(
                 },
                 process.env.ACCESS_TOKEN_SECRET as string,
                 {
-                    expiresIn: "1h",
+                    expiresIn: "60m",
                 }
             );
             // add username, email, id to the response
