@@ -8,7 +8,7 @@ import { BarChartComponent } from "./components/barChart";
 
 export default function Analytics() {
     const { data: issues } = useQuery({
-        queryFn: getAllCivicIssues,
+        queryFn: () => getAllCivicIssues({ limit: 100 }),
         queryKey: ["publicCivicIssues"],
     })
 

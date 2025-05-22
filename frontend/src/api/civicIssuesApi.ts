@@ -1,6 +1,5 @@
 import api from "./api";
 import { CreateCivicIssueTypeApi } from "../app/utils/validations";
-import { AxiosResponse } from "axios";
 
 interface ApiResponse {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -12,6 +11,12 @@ interface Pagination {
     page: number;
     limit: number;
     totalPages: number;
+}
+
+interface ApiResponseWithPagination {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    data: any;
+    pagination: Pagination;
 }
 
 const URLS = {
@@ -35,10 +40,7 @@ export const getAllCivicIssues = (params: {
     category?: string;
     status?: string;
 }) => {
-    return api.get<ApiResponse & { pagination: Pagination }>(
-        URLS.getAllIssues,
-        { params }
-    );
+    return api.get<ApiResponseWithPagination>(URLS.getAllIssues, { params });
 };
 
 export const getCivicIssueById = (id: string) => {
